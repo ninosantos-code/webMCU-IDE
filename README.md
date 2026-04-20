@@ -35,6 +35,11 @@ npm run check
 npm test
 ```
 
+
+## ✅ Qualidade contínua
+
+O projeto inclui workflow de CI no GitHub Actions para rodar checagem sintática e testes automatizados em `push` e `pull_request`.
+
 ## 🧩 Estrutura do projeto
 
 ```text
