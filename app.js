@@ -1,3 +1,5 @@
+import { EXAMPLES, getBoardFileSlug, validateCode } from './core.js';
+
 const boardSelect = document.querySelector('#boardSelect');
 const codeEditor = document.querySelector('#codeEditor');
 const loadExampleBtn = document.querySelector('#loadExampleBtn');
@@ -10,59 +12,6 @@ const statusText = document.querySelector('#statusText');
 const logOutput = document.querySelector('#logOutput');
 
 const STORAGE_KEY = 'webmcu-ide:project:v2';
-
-const EXAMPLES = {
-  'Arduino Uno': `// Blink clássico para Arduino Uno
-const int LED_PIN = 13;
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(LED_PIN, HIGH);
-  delay(500);
-  digitalWrite(LED_PIN, LOW);
-  delay(500);
-}`,
-  'ESP32 DevKit': `// Exemplo ESP32
-const int LED_PIN = 2;
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);
-  Serial.begin(115200);
-}
-
-void loop() {
-  Serial.println("Pisca ESP32");
-  digitalWrite(LED_PIN, !digitalRead(LED_PIN));
-  delay(300);
-}`,
-  'STM32 Blue Pill': `// Exemplo STM32 (Blue Pill)
-void setup() {
-  pinMode(PC13, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(PC13, LOW);
-  delay(500);
-  digitalWrite(PC13, HIGH);
-  delay(500);
-}`,
-  'Raspberry Pi Pico': `// Exemplo Raspberry Pi Pico (Arduino core)
-const int LED_PIN = 25;
-
-void setup() {
-  pinMode(LED_PIN, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(LED_PIN, HIGH);
-  delay(200);
-  digitalWrite(LED_PIN, LOW);
-  delay(200);
-}`,
-};
 
 function nowTime() {
   return new Date().toLocaleTimeString('pt-BR', { hour12: false });
@@ -91,36 +40,6 @@ function updateStatus(message) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function validateCode(sourceCode) {
-  const hasLoop = sourceCode.includes('loop(');
-  const hasSetup = sourceCode.includes('setup(');
-
-  if (!hasSetup || !hasLoop) {
-    return 'Funções setup()/loop() não encontradas. Estrutura inválida para sketch.';
-  }
-
-  let bracketBalance = 0;
-  for (const char of sourceCode) {
-    if (char === '{') {
-      bracketBalance += 1;
-    }
-
-    if (char === '}') {
-      bracketBalance -= 1;
-    }
-
-    if (bracketBalance < 0) {
-      return 'Blocos fechados antes da abertura. Verifique as chaves do código.';
-    }
-  }
-
-  if (bracketBalance !== 0) {
-    return 'Quantidade de chaves de abertura/fechamento não confere.';
-  }
-
-  return null;
 }
 
 function serializeProject() {
@@ -233,7 +152,7 @@ function downloadCode() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
 
-  const boardSlug = boardSelect.value.toLowerCase().replace(/\s+/g, '-');
+  const boardSlug = getBoardFileSlug(boardSelect.value);
   anchor.href = url;
   anchor.download = `${boardSlug}-sketch.ino`;
   anchor.click();
