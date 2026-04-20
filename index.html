@@ -28,6 +28,8 @@
           <button id="loadExampleBtn" type="button">Carregar Exemplo</button>
           <button id="compileBtn" type="button">Compilar</button>
           <button id="uploadBtn" type="button">Enviar</button>
+          <button id="saveBtn" type="button">Salvar Projeto</button>
+          <button id="clearLogsBtn" type="button" class="button-secondary">Limpar Logs</button>
         </div>
 
         <div class="status-box" aria-live="polite">
@@ -37,7 +39,10 @@
       </section>
 
       <section class="panel editor" aria-labelledby="editor-title">
-        <h2 id="editor-title">Editor</h2>
+        <div class="editor-header">
+          <h2 id="editor-title">Editor</h2>
+          <button id="downloadBtn" type="button" class="button-secondary">Baixar .ino</button>
+        </div>
         <label class="sr-only" for="codeEditor">Código-fonte</label>
         <textarea
           id="codeEditor"
@@ -53,7 +58,7 @@ void loop() {
 }
 </textarea
         >
-        <p id="editorHint" class="hint">Dica: teste e evolua o fluxo antes da integração real com hardware.</p>
+        <p id="editorHint" class="hint">Dica: Ctrl/Cmd + S salva o projeto localmente.</p>
       </section>
 
       <section class="panel logs" aria-labelledby="logs-title">

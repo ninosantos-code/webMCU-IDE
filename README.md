@@ -2,21 +2,24 @@
 
 IDE web para microcontroladores (Arduino, ESP32, STM32, Raspberry Pi Pico e outros), com foco em produtividade para makers, estudantes e times de IoT.
 
-## ✨ O que este MVP entrega
+## ✨ O que esta versão entrega
 
-- Editor de código no navegador com exemplos rápidos.
-- Seleção de placa alvo.
-- Simulação de **compilação**, **upload** e **monitor serial**.
+- Editor de código no navegador com exemplos rápidos por placa.
+- Simulação de **compilação**, **upload** e **monitor serial** para validar fluxo de UX.
+- Persistência local automática com `localStorage`.
+- Atalhos e utilidades de produtividade:
+  - `Ctrl/Cmd + S` para salvar;
+  - download de sketch `.ino`;
+  - limpeza de logs.
 - Interface responsiva para desktop e mobile.
-- Estrutura pronta para evoluir para integrações reais (CLI/toolchain/WebSerial/WebUSB).
 
-> **Importante:** nesta versão, compile/upload são simulados para facilitar validação de UX e fluxo do produto.
+> **Importante:** compile/upload ainda são simulados. A estrutura está pronta para integração real com toolchains e dispositivos.
 
 ## 🚀 Como executar
 
-Não há dependências obrigatórias: basta abrir o arquivo `index.html` no navegador.
+Basta abrir o arquivo `index.html` no navegador.
 
-Opcionalmente, rode um servidor local simples:
+Opcionalmente, rode um servidor local:
 
 ```bash
 python3 -m http.server 8080
@@ -28,38 +31,23 @@ Depois acesse `http://localhost:8080`.
 
 ```text
 .
-├── app.js        # lógica da interface e simulação de pipeline
-├── index.html    # layout e semântica da aplicação
-├── styles.css    # tema, responsividade e componentes visuais
+├── app.js        # lógica da interface, validação e persistência local
+├── index.html    # layout semântico da aplicação
+├── styles.css    # tema visual e responsividade
 └── README.md
 ```
 
-## 🛠️ Melhorias aplicadas nesta revisão
+## 🔍 Melhorias implementadas neste upgrade
 
-- Organização inicial da aplicação com separação de responsabilidades (HTML/CSS/JS).
-- Experiência de usuário com feedbacks de estado e mensagens de log.
-- Melhorias de acessibilidade:
-  - labels explícitos e hierarquia de headings;
-  - regiões com `aria-live` para atualizações dinâmicas;
-  - botões com estados `disabled` durante operações.
-- Preparação para evolução futura (hooks para backend/toolchains).
+- Reforço da validação de código antes da simulação de build (estrutura + chaves).
+- Salvamento e restauração automáticos de projeto no navegador.
+- Botões utilitários para salvar, limpar logs e baixar sketch.
+- Melhorias de UX para acelerar ciclos de teste sem hardware.
 
-## 📋 Próximos upgrades sugeridos
+## 📋 Próximos upgrades recomendados
 
-1. Integração real de compilação via API backend (PlatformIO/arduino-cli).
-2. Integração com Web Serial / WebUSB para gravação em placa.
-3. Persistência de projetos no navegador (IndexedDB) e exportação/importação.
-4. Editor avançado com syntax highlighting (Monaco/CodeMirror).
-5. Pipeline de qualidade: lint, testes automatizados e CI.
-
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Para manter consistência:
-
-- mantenha funções pequenas e com responsabilidade única;
-- priorize acessibilidade e mensagens de erro claras;
-- documente fluxos novos no `README.md`.
-
-## 📄 Licença
-
-Defina a licença do projeto (ex.: MIT) antes de publicar em produção.
+1. Backend com compilação real via `arduino-cli` ou PlatformIO.
+2. Upload real para placa via Web Serial / WebUSB.
+3. Editor avançado (Monaco/CodeMirror) com highlight e lint.
+4. Testes automatizados (unitários e e2e) + pipeline CI.
+5. Gerenciamento de múltiplos projetos e templates.
