@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>webMCU-IDE</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>webMCU-IDE</h1>
+      <p>Escreva, valide e envie firmware com agilidade.</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel controls" aria-labelledby="controles-title">
+        <h2 id="controles-title">Controles</h2>
+
+        <label for="boardSelect">Placa alvo</label>
+        <select id="boardSelect">
+          <option value="Arduino Uno">Arduino Uno</option>
+          <option value="ESP32 DevKit">ESP32 DevKit</option>
+          <option value="STM32 Blue Pill">STM32 Blue Pill</option>
+          <option value="Raspberry Pi Pico">Raspberry Pi Pico</option>
+        </select>
+
+        <div class="button-row">
+          <button id="loadExampleBtn" type="button">Carregar Exemplo</button>
+          <button id="compileBtn" type="button">Compilar</button>
+          <button id="uploadBtn" type="button">Enviar</button>
+          <button id="saveBtn" type="button">Salvar Projeto</button>
+          <button id="clearLogsBtn" type="button" class="button-secondary">Limpar Logs</button>
+        </div>
+
+        <div class="status-box" aria-live="polite">
+          <strong>Status:</strong>
+          <span id="statusText">Pronto</span>
+        </div>
+      </section>
+
+      <section class="panel editor" aria-labelledby="editor-title">
+        <div class="editor-header">
+          <h2 id="editor-title">Editor</h2>
+          <button id="downloadBtn" type="button" class="button-secondary">Baixar .ino</button>
+        </div>
+        <label class="sr-only" for="codeEditor">Código-fonte</label>
+        <textarea
+          id="codeEditor"
+          spellcheck="false"
+          aria-describedby="editorHint"
+        >// Clique em "Carregar Exemplo" para iniciar.
+void setup() {
+  // configure aqui
+}
+
+void loop() {
+  // lógica principal
+}
+</textarea
+        >
+        <p id="editorHint" class="hint">Dica: Ctrl/Cmd + S salva o projeto localmente.</p>
+      </section>
+
+      <section class="panel logs" aria-labelledby="logs-title">
+        <h2 id="logs-title">Logs</h2>
+        <pre id="logOutput" aria-live="polite"></pre>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <small>webMCU-IDE MVP • Fluxo de build/upload simulado</small>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
